@@ -35,6 +35,10 @@
 #define AUTO_SHIFT_TIMEOUT TAPPING_TERM
 #define AUTO_SHIFT_NO_SETUP
 
+// Cross case
+// NOTE: remove when capslock works on work laptop
+#define CAPSWORD_USE_SHIFT
+
 #ifdef AUDIO_ENABLE
 /* #    define STARTUP_SONG SONG(PLANCK_SOUND) */
 #define STARTUP_SONG SONG(NO_SOUND)

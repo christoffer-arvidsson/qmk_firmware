@@ -32,9 +32,7 @@ enum planck_layers {
 enum custom_keycodes {
     CAPSWORD = SAFE_RANGE,
     SNAKECASE,
-    PLOVER,
-    BACKLIT,
-    EXT_PLV
+    SCREAMSNAKECASE,
 };
 
 #define LT_MEDIA LT(_MEDIA, KC_ESC)
@@ -74,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO
     ),
 [_PROG] = LAYOUT_planck_grid(
-    RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, S(KC_9),    S(KC_0),    KC_NO, KC_NO,
-    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_LBRC,    KC_RBRC,    SNAKECASE, CAPSWORD,
-    KC_RALT, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, S(KC_LBRC), S(KC_RBRC), KC_NO, KC_NO,
+    RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, S(KC_9),    S(KC_0),    KC_NO, SCREAMSNAKECASE,
+    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_LBRC,    KC_RBRC,    KC_NO, CAPSWORD,
+    KC_RALT, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, S(KC_LBRC), S(KC_RBRC), KC_NO, SNAKECASE,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,      KC_NO,      KC_NO, KC_NO
     ),
 [_SYM] = LAYOUT_planck_grid(
@@ -99,14 +97,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) {
-        return false;
-    }
 
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) {return false;}
+    if (!process_case_modes(keycode, record)) {return false;}
 
     switch (keycode) {
         case CAPSWORD:
@@ -114,14 +109,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 enable_caps_word();
             }
             return false;
+        case SCREAMSNAKECASE:
+            if (record->event.pressed) {
+                enable_caps_word();
+                enable_xcase_with(KC_UNDS);
+            }
+            return false;
         case SNAKECASE:
             if (record->event.pressed) {
-                const uint8_t mods = get_mods();
-                if (mods & MOD_MASK_SHIFT) {
-                    // SCREAMING_SNAKE_CASE
-                    enable_caps_word();
-                }
-                // snake_case
                 enable_xcase_with(KC_UNDS);
             }
             return false;
