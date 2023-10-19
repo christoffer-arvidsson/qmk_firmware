@@ -33,6 +33,8 @@ enum custom_keycodes {
     CAPSWORD = SAFE_RANGE,
     SNAKECASE,
     SCREAMSNAKECASE,
+    RIGHT_POINTER,
+    LEFT_POINTER
 };
 
 #define LT_MEDIA LT(_MEDIA, KC_ESC)
@@ -72,10 +74,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO
     ),
 [_PROG] = LAYOUT_planck_grid(
-    RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, S(KC_9),    S(KC_0),    KC_NO, SCREAMSNAKECASE,
-    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_LBRC,    KC_RBRC,    KC_NO, CAPSWORD,
-    KC_RALT, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, S(KC_LBRC), S(KC_RBRC), KC_NO, SNAKECASE,
-    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,      KC_NO,      KC_NO, KC_NO
+    RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,        S(KC_9),    S(KC_0),    KC_NO,         SCREAMSNAKECASE,
+    KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO, KC_NO, KC_NO, LEFT_POINTER, KC_LBRC,    KC_RBRC,    RIGHT_POINTER, CAPSWORD,
+    KC_RALT, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,        S(KC_LBRC), S(KC_RBRC), KC_NO,         SNAKECASE,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,        KC_NO,      KC_NO,      KC_NO,         KC_NO
     ),
 [_SYM] = LAYOUT_planck_grid(
     S(KC_NO),    S(KC_7),  S(KC_8),  S(KC_9), S(KC_NO),    KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   RESET,
@@ -120,6 +122,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 enable_xcase_with(KC_UNDS);
             }
             return false;
+        case RIGHT_POINTER:
+            if (record->event.pressed) {
+                SEND_STRING("->");
+            }
+            break;
+        case LEFT_POINTER:
+            if (record->event.pressed) {
+                SEND_STRING("<-");
+            }
+            break;
         default:
             return true;
     }
