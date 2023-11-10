@@ -29,7 +29,15 @@ enum planck_layers {
     _FUN,
 };
 
-enum custom_keycodes { CAPSWORD = SAFE_RANGE, SNAKECASE, SCREAMSNAKECASE, CU_RPTR, CU_LPTR };
+// clang-format off
+enum custom_keycodes {
+    CAPSWORD = SAFE_RANGE,
+    CU_SNKCASE,
+    CU_SSNKCASE,
+    CU_RPTR,
+    CU_LPTR
+};
+// clang-format on
 
 #define LT_MEDIA LT(_MEDIA, KC_ESC)
 #define LT_NAV LT(_NAV, KC_SPC)
@@ -48,50 +56,54 @@ enum custom_keycodes { CAPSWORD = SAFE_RANGE, SNAKECASE, SCREAMSNAKECASE, CU_RPT
 #define MT_O MT(MOD_LCTL, KC_O)
 #define MT_SLSH MT(MOD_RALT, KC_SLSH)
 
+// Just for cleaner readable keymaps (XXXXXXX is too blocky)
+#define _______ KC_NO
+
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_planck_grid(
-    KC_Q,     KC_W,    KC_F,     KC_P,    KC_B,     KC_NO, KC_NO, KC_J,    KC_L,      KC_U,             KC_Y,     KC_QUOT,
-    MT_A,     MT_R,    MT_S,     MT_T,    KC_G,     KC_NO, KC_NO, KC_M,    MT_N,      MT_E,             MT_I,     MT_O,
-    MT_Z,     KC_X,    KC_C,     KC_D,    KC_V,     KC_NO, KC_NO, KC_K,    KC_H,      KC_COMM,          KC_DOT,   MT_SLSH,
-    KC_NO,    KC_NO,   LT_MEDIA, LT_NAV,  LT_PROG,  KC_NO, KC_NO, LT_SYM,  LT_NUM,    LT_FUN,           KC_NO,    KC_NO
+    KC_Q,     KC_W,    KC_F,     KC_P,    KC_B,     _______, _______, KC_J,    KC_L,      KC_U,    KC_Y,     KC_QUOT,
+    MT_A,     MT_R,    MT_S,     MT_T,    KC_G,     _______, _______, KC_M,    MT_N,      MT_E,    MT_I,     MT_O,
+    MT_Z,     KC_X,    KC_C,     KC_D,    KC_V,     _______, _______, KC_K,    KC_H,      KC_COMM, KC_DOT,   MT_SLSH,
+    _______,  _______, LT_MEDIA, LT_NAV,  LT_PROG,  _______, _______, LT_SYM,  LT_NUM,    LT_FUN,  _______,  _______
     ),
 [_MEDIA] = LAYOUT_planck_grid(
-    QK_BOOT,  KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, RGB_TOG, LED_LEVEL, RGB_MODE_FORWARD, RGB_HUI,  RGB_HUD,
-    KC_LCTL,  KC_LALT, KC_LGUI,  KC_LSFT, KC_NO,    KC_NO, KC_NO, KC_MPRV, KC_MSTP,   KC_MPLY,          KC_MNXT,  KC_MUTE,
-    KC_RALT,  KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_VOLD,   KC_VOLU,          KC_NO,    KC_NO,
-    KC_NO,    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO
+    QK_BOOT,  _______, _______,  _______, _______,  _______, _______, RGB_TOG, LED_LEVEL, RGB_MOD, RGB_HUI,  RGB_HUD,
+    KC_LCTL,  KC_LALT, KC_LGUI,  KC_LSFT, _______,  _______, _______, KC_MPRV, KC_MSTP,   KC_MPLY, KC_MNXT,  KC_MUTE,
+    KC_RALT,  _______, _______,  _______, _______,  _______, _______, _______, KC_VOLD,   KC_VOLU, _______,  _______,
+    _______,  _______, _______,  _______, _______,  _______, _______, _______, _______,   _______, _______,  _______
     ),
 [_NAV] = LAYOUT_planck_grid(
-    QK_BOOT,  KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO,
-    KC_LCTL,  KC_LALT, KC_LGUI,  KC_LSFT, KC_NO,    KC_NO, KC_NO, KC_LEFT, KC_DOWN,   KC_UP,            KC_RIGHT, KC_NO,
-    KC_RALT,  KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_PGDN,   KC_PGUP,          KC_NO,    KC_NO,
-    KC_NO,    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO
+    QK_BOOT,  _______, _______,  _______, _______,  _______, _______, _______, _______,   _______, _______,  _______,
+    KC_LCTL,  KC_LALT, KC_LGUI,  KC_LSFT, _______,  _______, _______, KC_LEFT, KC_DOWN,   KC_UP,   KC_RIGHT, _______,
+    KC_RALT,  _______, _______,  _______, _______,  _______, _______, _______, KC_PGDN,   KC_PGUP, _______,  _______,
+    _______,  _______, _______,  _______, _______,  _______, _______, _______, _______,   _______, _______,  _______
     ),
 [_PROG] = LAYOUT_planck_grid(
-    QK_BOOT,  KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_LPRN,   KC_RPRN,          KC_CAPS,  SCREAMSNAKECASE,
-    KC_LCTL,  KC_LALT, KC_LGUI,  KC_LSFT, KC_NO,    KC_NO, KC_NO, CU_LPTR, KC_LBRC,   KC_RBRC,          CU_RPTR,  CAPSWORD,
-    KC_RALT,  KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_LCBR,   KC_RCBR,          KC_NO,    SNAKECASE,
-    KC_NO,    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO
+    QK_BOOT,  _______, _______,  _______, _______,  _______, _______, _______, KC_LPRN,   KC_RPRN, KC_CAPS,  CU_SSNKCASE,
+    KC_LCTL,  KC_LALT, KC_LGUI,  KC_LSFT, _______,  _______, _______, CU_LPTR, KC_LBRC,   KC_RBRC, CU_RPTR,  CAPSWORD,
+    KC_RALT,  _______, _______,  _______, _______,  _______, _______, _______, KC_LCBR,   KC_RCBR, _______,  CU_SNKCASE,
+    _______,  _______, _______,  _______, _______,  _______, _______, _______, _______,   _______, _______,  _______
     ),
 
 [_SYM] = LAYOUT_planck_grid(
-    KC_NO,    KC_AMPR, KC_ASTR,  KC_LPRN, KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    QK_BOOT,
-    KC_COLN,  KC_DLR,  KC_PERC,  KC_CIRC, KC_PLUS,  KC_NO, KC_NO, KC_NO,   KC_LSFT,   KC_LGUI,          KC_LALT,  KC_LCTL,
-    KC_TILD,  KC_EXLM, KC_AT,    KC_HASH, KC_PIPE,  KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_RALT,
-    KC_NO,    KC_NO,   KC_NO,    KC_RPRN, KC_UNDS,  KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO
+    _______,  KC_AMPR, KC_ASTR,  KC_LPRN, _______,  _______, _______, _______, _______,   _______, _______,  QK_BOOT,
+    KC_COLN,  KC_DLR,  KC_PERC,  KC_CIRC, KC_PLUS,  _______, _______, _______, KC_LSFT,   KC_LGUI, KC_LALT,  KC_LCTL,
+    KC_TILD,  KC_EXLM, KC_AT,    KC_HASH, KC_PIPE,  _______, _______, _______, _______,   _______, _______,  KC_RALT,
+    _______,  _______, _______,  KC_RPRN, KC_UNDS,  _______, _______, _______, _______,   _______, _______,  _______
     ),
 [_NUM] = LAYOUT_planck_grid(
-    KC_NO,    KC_7,    KC_8,     KC_9,    KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    QK_BOOT,
-    KC_SCLN,  KC_4,    KC_5,     KC_6,    KC_EQL,   KC_NO, KC_NO, KC_NO,   KC_LSFT,   KC_LGUI,          KC_LALT,  KC_LCTL,
-    KC_GRAVE, KC_1,    KC_2,     KC_3,    KC_BSLS,  KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_RALT,
-    KC_NO,    KC_NO,   KC_NO,    KC_0,    KC_MINS,  KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO
+    _______,  KC_7,    KC_8,     KC_9,    _______,  _______, _______, _______, _______,   _______, _______,  QK_BOOT,
+    KC_SCLN,  KC_4,    KC_5,     KC_6,    KC_EQL,   _______, _______, _______, KC_LSFT,   KC_LGUI, KC_LALT,  KC_LCTL,
+    KC_GRAVE, KC_1,    KC_2,     KC_3,    KC_BSLS,  _______, _______, _______, _______,   _______, _______,  KC_RALT,
+    _______,  _______, _______,  KC_0,    KC_MINS,  _______, _______, _______, _______,   _______, _______,  _______
     ),
 [_FUN] = LAYOUT_planck_grid(
-    KC_F12,   KC_F7,   KC_F8,    KC_F9,   KC_PSCR,  KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    QK_BOOT,
-    KC_F11,   KC_F4,   KC_F5,    KC_F6,   KC_SCRL,  KC_NO, KC_NO, KC_NO,   KC_LSFT,   KC_LGUI,          KC_LALT,  KC_LCTL,
-    KC_F10,   KC_F1,   KC_F2,    KC_F3,   KC_PAUSE, KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_RALT,
-    KC_NO,    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,   KC_NO,     KC_NO,            KC_NO,    KC_NO
+    KC_F12,   KC_F7,   KC_F8,    KC_F9,   KC_PSCR,  _______, _______, _______, _______,   _______, _______,  QK_BOOT,
+    KC_F11,   KC_F4,   KC_F5,    KC_F6,   KC_SCRL,  _______, _______, _______, KC_LSFT,   KC_LGUI, KC_LALT,  KC_LCTL,
+    KC_F10,   KC_F1,   KC_F2,    KC_F3,   KC_PAUSE, _______, _______, _______, _______,   _______, _______,  KC_RALT,
+    _______,  _______, _______,  _______, _______,  _______, _______, _______, _______,   _______, _______,  _______
     )
 };
 // clang-format on
@@ -110,13 +122,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 enable_caps_word();
             }
             return false;
-        case SCREAMSNAKECASE:
+        case CU_SSNKCASE:
             if (record->event.pressed) {
                 enable_caps_word();
                 enable_xcase_with(KC_UNDS);
             }
             return false;
-        case SNAKECASE:
+        case CU_SNKCASE:
             if (record->event.pressed) {
                 enable_xcase_with(KC_UNDS);
             }
@@ -179,19 +191,19 @@ bool achordion_eager_mod(uint8_t mod) {
 }
 
 // Template
-// KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-// KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-// KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-// KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+// _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,
+// _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,
+// _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,
+// _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______
 
 // Left
-// QK_BOOT,    KC_NO,    KC_NO,    KC_NO,    KC_NO, KC_NO
-// MOD_LCTL, MOD_LALT, MOD_LGUI, MOD_LSFT, KC_NO, KC_NO
-// KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, KC_NO
-// KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, KC_NO
+// QK_BOOT,    _______,    _______,    _______,    _______, _______
+// MOD_LCTL, MOD_LALT, MOD_LGUI, MOD_LSFT, _______, _______
+// _______,    _______,    _______,    _______,    _______, _______
+// _______,    _______,    _______,    _______,    _______, _______
 
 // Right
-// KC_NO, KC_NO, KC_NO,    KC_NO,    KC_NO,    QK_BOOT
-// KC_NO, KC_NO, MOD_LSFT, MOD_LGUI, MOD_LALT, MOD_LCTL
-// KC_NO, KC_NO, KC_NO,    KC_NO,    KC_NO,    KC_NO
-// KC_NO, KC_NO, KC_NO,    KC_NO,    KC_NO,    KC_NO
+// _______, _______, _______,    _______,    _______,    QK_BOOT
+// _______, _______, MOD_LSFT, MOD_LGUI, MOD_LALT, MOD_LCTL
+// _______, _______, _______,    _______,    _______,    _______
+// _______, _______, _______,    _______,    _______,    _______
