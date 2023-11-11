@@ -44,7 +44,7 @@ enum custom_keycodes {
 #define LT_PROG LT(_PROG, KC_TAB)
 #define LT_SYM LT(_SYM, KC_ENT)
 #define LT_NUM LT(_NUM, KC_BSPC)
-#define LT_FUN LT(_FUN, KC_DEL)
+/* #define LT_FUN LT(_FUN, KC_DEL) */
 #define MT_Z MT(MOD_RALT, KC_Z)
 #define MT_A MT(MOD_LCTL, KC_A)
 #define MT_R MT(MOD_LALT, KC_R)
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,     KC_W,    KC_F,     KC_P,    KC_B,     _______, _______, KC_J,    KC_L,      KC_U,    KC_Y,     KC_QUOT,
     MT_A,     MT_R,    MT_S,     MT_T,    KC_G,     _______, _______, KC_M,    MT_N,      MT_E,    MT_I,     MT_O,
     MT_Z,     KC_X,    KC_C,     KC_D,    KC_V,     _______, _______, KC_K,    KC_H,      KC_COMM, KC_DOT,   MT_SLSH,
-    _______,  _______, LT_MEDIA, LT_NAV,  LT_PROG,  _______, _______, LT_SYM,  LT_NUM,    LT_FUN,  _______,  _______
+    _______,  _______, LT_MEDIA, LT_NAV,  LT_PROG,  _______, _______, LT_SYM,  LT_NUM,    QK_REP,  _______,  _______
     ),
 [_NAV] = LAYOUT_planck_grid(
     QK_BOOT,  _______, _______,  _______, _______,  _______, _______, _______, _______,   _______, _______,  _______,
@@ -191,7 +191,7 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
         case LT_PROG:
         case LT_SYM:
         case LT_NUM:
-        case LT_FUN:
+        /* case LT_FUN: */
             return 0;
     }
 
